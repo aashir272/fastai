@@ -14,7 +14,7 @@ class DDGImageLoader(object):
 
     def load(self) -> dict:
         """
-        :return: term_url_map: Dictionary mapping search term to a list of URLs
+        :return term_url_map: Dictionary mapping search term to a list of URLs
         """
         term_url_map = self.get_term_url_map(self.terms)
         return term_url_map
@@ -46,7 +46,7 @@ class DDGImageLoader(object):
                          terms: list) -> dict:
         """
         :param terms: List of search terms
-        :return: term_url_map: Dictionray mapping search term to a list of URLs
+        :return term_url_map: Dictionray mapping search term to a list of URLs
         """
 
         term_url_map = {}
