@@ -1,8 +1,19 @@
 from fastai.vision.all import DataBlock, ImageBlock, CategoryBlock, get_image_files, RandomSplitter, \
     parent_label, Resize
+from abc import ABC, abstractmethod
 
 
-class DDGImageDAO(object):
+class DAO(ABC):
+    """
+    Abstract class to define implementations of data access objects
+    """
+
+    @abstractmethod
+    def get_data_loader(self, **kwargs):
+        pass
+
+
+class DDGImageDAO(DAO):
     """
     Wrapper data access object around DataBlock API for DDG images
     """
@@ -16,7 +27,8 @@ class DDGImageDAO(object):
                         splitter=RandomSplitter(valid_pct=0.2, seed=10),
                         get_y=parent_label,
                         item_tfms=None,
-                        bs=32):
+                        bs=32,
+                        **kwargs):
         """
         :param blocks: Tuple defining input and output types of model
         :param get_items: Function to get data to input into model
@@ -34,7 +46,7 @@ class DDGImageDAO(object):
             splitter=splitter,
             get_y=get_y,
             item_tfms=item_tfms
-        ).dataloaders(self.source, bs=bs)
+        ).dataloaders(self.source, bs=bs, **kwargs)
 
         return dls
 
